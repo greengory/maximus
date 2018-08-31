@@ -1,4 +1,4 @@
-const express = require("express"); //1. express variable is not available, change to "express"
+const express = require('express'); //1. express variable is not available, change to "express"
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const http = require('http');
@@ -26,7 +26,7 @@ app.use(bodyParser.json());
  * the request object does not have the status function, hence an error is thrown
  */
 // handler to save user
-app.get('/save', function(req, res) { // change to req, res
+app.get('/save', function(req, res) { // change to req(uest), res(ponse)
   const user = new User(user);
 
   user.save(function(err) {
@@ -35,10 +35,13 @@ app.get('/save', function(req, res) { // change to req, res
       return logger.log(err);
     }
   });
+  /***
+   * 1. res.status(200).send('success'); sets the header  Content-Type: text/plain and sends it over http
+   * 2. return res.json(user); Attempts to set the header Content-Type: application/json after its been sent,
+   * hence the code return an error
+   */
 
-  res.status(200).send('success');
-
-  return res.json(user);
+    return res.status(200).send({success: 'success', user}); //this returns the success message and also the user object. Setting the header once
 });
 
 const server = http.createServer(app);

@@ -46,6 +46,6 @@ func (task *Tasks) Create() error {
 	if err != nil {
 		return err
 	}
-	//Since the function signature returns an error, the function cannot just return hence we return nil
+	//Since the function signature returns an error, the function cannot just return hence we return nil because it satisfy any inteface(including the error interface)
 	return nil
 }

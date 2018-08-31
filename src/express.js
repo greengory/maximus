@@ -1,7 +1,4 @@
-The JS file below has a few errors, can you indentify and fix them?
-
-```js
-const express = require(express);
+const express = require("express"); //1. express variable is not available, change to "express"
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const http = require('http');
@@ -23,8 +20,13 @@ const db = mongoose.connection;
 
 app.use(bodyParser.json());
 
+
+/**
+ * 2. The function takes a request(req) and a response(res)
+ * the request object does not have the status function, hence an error is thrown
+ */
 // handler to save user
-app.get('/save', function(res, req) {
+app.get('/save', function(req, res) { // change to req, res
   const user = new User(user);
 
   user.save(function(err) {
@@ -34,11 +36,9 @@ app.get('/save', function(res, req) {
     }
   });
 
-  res.status(200).send({success: 'success', user}); 
+  res.status(200).send('success');
 
-  //return res.json(user); 
-  //3. .send() above set the header Content-Type: text/plain,
-  //trying to set a header (Content-Type: application/json) on a request that has already been sent will result in an Error being thrown.
+  return res.json(user);
 });
 
 const server = http.createServer(app);
@@ -48,4 +48,3 @@ server.listen(80, function() {
     logger.log(error);
   });
 });
-```

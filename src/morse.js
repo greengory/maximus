@@ -63,8 +63,13 @@ Object.freeze(MORSE_CODE);
  *
  * @param {string} morseCode The string to decode.
  */
-function decodeMorse(morseCode) {
-  // Your code should go here.
+ function decodeMorse(morseCode){
+  return morseCode.trim().split('   ').map(function(word) {
+    return word.split(' ').map(function(letter) {
+      return MORSE_CODE[letter];
+    }).join('');
+  }).join(' ');
 }
+
 
 module.exports = decodeMorse;
